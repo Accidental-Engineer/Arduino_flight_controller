@@ -83,8 +83,8 @@ void setup(){
 
   //Arduino (Atmega) pins default to inputs, so they don't need to be explicitly declared as inputs.
   DDRC |= B11110000;                                                        //Configure digital poort 33, 32, 31 and 30 as output.
-  //DDRB |= B00110000;                                                        //Configure digital poort 12 and 13 as output.
-  pinMode(41, OUTPUT);
+  //Configure digital poort 41,42 and 43 as output.                                                      
+  pinMode(41, OUTPUT);                                                      
   pinMode(42, OUTPUT);
   pinMode(43, OUTPUT);
   //Use the led on the Arduino for startup indication.
@@ -344,7 +344,7 @@ void loop(){
   while(micros() - loop_timer < 4000);                                      //We wait until 4000us are passed.
   loop_timer = micros();                                                    //Set the timer for the next loop.
 
-  PORTC |= B11110000;                                                       //Set digital outputs 4,5,6 and 7 high.
+  PORTC |= B11110000;                                                       //Set digital outputs 33,32,31 and 30 high.
   timer_channel_1 = esc_1 + loop_timer;                                     //Calculate the time of the faling edge of the esc-1 pulse.
   timer_channel_2 = esc_2 + loop_timer;                                     //Calculate the time of the faling edge of the esc-2 pulse.
   timer_channel_3 = esc_3 + loop_timer;                                     //Calculate the time of the faling edge of the esc-3 pulse.
@@ -354,12 +354,12 @@ void loop(){
   //Get the current gyro and receiver data and scale it to degrees per second for the pid calculations.
   gyro_signalen();
 
-  while(PORTC >= 16){                                                       //Stay in this loop until output 4,5,6 and 7 are low.
+  while(PORTC >= 16){                                                       //Stay in this loop until output 33,32,31 and 30 are low.
     esc_loop_timer = micros();                                              //Read the current time.
-    if(timer_channel_1 <= esc_loop_timer)PORTC &= B11101111;                //Set digital output 4 to low if the time is expired.
-    if(timer_channel_2 <= esc_loop_timer)PORTC &= B11011111;                //Set digital output 5 to low if the time is expired.
-    if(timer_channel_3 <= esc_loop_timer)PORTC &= B10111111;                //Set digital output 6 to low if the time is expired.
-    if(timer_channel_4 <= esc_loop_timer)PORTC &= B01111111;                //Set digital output 7 to low if the time is expired.
+    if(timer_channel_1 <= esc_loop_timer)PORTC &= B11101111;                //Set digital output 33 to low if the time is expired.
+    if(timer_channel_2 <= esc_loop_timer)PORTC &= B11011111;                //Set digital output 32 to low if the time is expired.
+    if(timer_channel_3 <= esc_loop_timer)PORTC &= B10111111;                //Set digital output 31 to low if the time is expired.
+    if(timer_channel_4 <= esc_loop_timer)PORTC &= B01111111;                //Set digital output 30 to low if the time is expired.
   }
 }
 

@@ -50,8 +50,8 @@ void setup(){
 
   //Arduino Uno pins default to inputs, so they don't need to be explicitly declared as inputs.
   DDRC |= B11110000;                                                                    //Configure digital poort 33, 32, 31, 30 as output*************************************************.
-  //DDRB |= B00010000;                                                                    //Configure digital poort 12 as output.
-  pinMode(41, OUTPUT);
+  //Configure digital poort 41,42 and 43 as output.                                                      
+  pinMode(41, OUTPUT);                                                      
   pinMode(42, OUTPUT);
   pinMode(43, OUTPUT);
   
@@ -422,17 +422,17 @@ void print_signals(){
 void esc_pulse_output(){
   zero_timer = micros();
   PORTC |= B11110000;                                            //Set port 37, 36, 35, 34 high at once//////////////////////////***********************************
-  timer_channel_1 = esc_1 + zero_timer;                          //Calculate the time when digital port 4 is set low.
-  timer_channel_2 = esc_2 + zero_timer;                          //Calculate the time when digital port 5 is set low.
-  timer_channel_3 = esc_3 + zero_timer;                          //Calculate the time when digital port 6 is set low.
-  timer_channel_4 = esc_4 + zero_timer;                          //Calculate the time when digital port 7 is set low.
+  timer_channel_1 = esc_1 + zero_timer;                          //Calculate the time when digital port 33 is set low.
+  timer_channel_2 = esc_2 + zero_timer;                          //Calculate the time when digital port 32 is set low.
+  timer_channel_3 = esc_3 + zero_timer;                          //Calculate the time when digital port 31 is set low.
+  timer_channel_4 = esc_4 + zero_timer;                          //Calculate the time when digital port 30 is set low.
 
-  while(PORTC >= 16){                                            //Execute the loop until digital port 4 to 7 is low.
+  while(PORTC >= 16){                                            //Execute the loop until digital port 33 to 30 is low.
     esc_loop_timer = micros();                                   //Check the current time.
-    if(timer_channel_1 <= esc_loop_timer)PORTC &= B11101111;     //When the delay time is expired, digital port 4 is set low.
-    if(timer_channel_2 <= esc_loop_timer)PORTC &= B11011111;     //When the delay time is expired, digital port 5 is set low.
-    if(timer_channel_3 <= esc_loop_timer)PORTC &= B10111111;     //When the delay time is expired, digital port 6 is set low.
-    if(timer_channel_4 <= esc_loop_timer)PORTC &= B01111111;     //When the delay time is expired, digital port 7 is set low.
+    if(timer_channel_1 <= esc_loop_timer)PORTC &= B11101111;     //When the delay time is expired, digital port 33 is set low.
+    if(timer_channel_2 <= esc_loop_timer)PORTC &= B11011111;     //When the delay time is expired, digital port 32 is set low.
+    if(timer_channel_3 <= esc_loop_timer)PORTC &= B10111111;     //When the delay time is expired, digital port 31 is set low.
+    if(timer_channel_4 <= esc_loop_timer)PORTC &= B01111111;     //When the delay time is expired, digital port 30 is set low.
   }
 }
 

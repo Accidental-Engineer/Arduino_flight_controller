@@ -25,9 +25,10 @@ float gyro_roll_cal, gyro_pitch_cal, gyro_yaw_cal;
 
 //Setup routine
 void setup(){
-  pinMode(43, OUTPUT);
+  //Configure digital poort 41,42 and 43 as output.                                                      
+  pinMode(41, OUTPUT);                                                      
   pinMode(42, OUTPUT);
-  pinMode(41, OUTPUT);
+  pinMode(43, OUTPUT);
   //Arduino (Atmega) pins default to inputs, so they don't need to be explicitly declared as inputs
   PCICR |= (1 << PCIE0);    // set PCIE0 to enable PCMSK0 scan
   PCMSK0 |= (1 << PCINT0);  // set PCINT0 (digital input 50 to 53) to trigger an interrupt on state change
